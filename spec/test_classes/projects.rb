@@ -13,7 +13,7 @@ module GrapeDoc
       desc "Update Project", {
         :params => {
           :project_id => { 
-            :description => "Project ID",
+            :desc => "Project ID",
             :required => true
           }
         }
@@ -25,7 +25,7 @@ module GrapeDoc
       desc "Delete Project", {
         :params => {
           :project_id => { 
-            :description => "Project ID",
+            :desc => "Project ID",
             :required => true
           }
         }, 
@@ -36,7 +36,6 @@ module GrapeDoc
       delete do
 
       end
-
     end
   end
 end

@@ -12,9 +12,8 @@ module GrapeDoc
       self.resource_name = resource
       self.http_method = route.route_method
       self.description = route.route_description
-      self.params = nil_or_empty route.route_params
+      self.params = APIParameter.initialize_parameters route.route_params
       self.response = nil_or_empty route.route_response
-      
     end
 
     private 
