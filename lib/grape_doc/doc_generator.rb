@@ -10,7 +10,7 @@ module GrapeDoc
     end
 
     def init_formatter
-      return MarkdownFormatter.new self.formatter.nil?
+      return GrapeDoc::MarkdownFormatter.new self.formatter.nil?
       
     end
 

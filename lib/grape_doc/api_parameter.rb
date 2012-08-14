@@ -8,7 +8,9 @@ module GrapeDoc
     def initialize(parameter_name = nil, 
                    parameter_hash = nil)
       return if parameter_name.nil? or 
-                parameter_hash.nil?
+                parameter_hash.nil? or
+                parameter_hash.empty? or
+                parameter_name.empty?
       self.field = parameter_name.to_s
       self.required = parameter_hash[:requires] || 
                       parameter_hash[:required]

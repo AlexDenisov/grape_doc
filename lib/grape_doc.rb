@@ -5,11 +5,13 @@ require 'grape_doc/api_parser'
 require 'grape_doc/api_parameter'
 require 'grape_doc/api_resource'
 require 'grape_doc/doc_generator'
+require 'grape_doc/formatters/markdown_formatter'
+
+require File.expand_path(Dir.pwd + "/config/environment")
 
 module GrapeDoc
   def self.generate_doc
-    Grape::API.subclasses.each do |klass|
-      puts klass
-    end
+    generator = DOCGenerator.new
+    generator.generate
   end
 end
