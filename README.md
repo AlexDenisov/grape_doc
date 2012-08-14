@@ -1,10 +1,12 @@
+_Not published yet_
+
 # GrapeDoc
 
-TODO: Write a gem description
+This gem generate API documentation from Grape API.
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Add this line to your application's Gemfile under development group
 
     gem 'grape_doc'
 
@@ -18,7 +20,105 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+To generate API documentation you should cd to rails app directory
+
+    $ cd rails_app
+
+Then run 
+
+    $ grape_doc
+
+It'll generate documentation for each Grape::API subclass and place it into **doc** directory. Each API subclass were placed as separated file.   
+
+You can pass a doc formatter as parameter
+
+    $ grape_doc markdown
+
+_At this time it supports only MarkDown format._
+
+## API description
+
+### Parameters
+
+#### grape > 0.2.1
+
+    desc "Returns a tweet."
+    params do
+      requires :id, 
+               :type => Integer, 
+               :desc => "Tweet id."
+    end
+    get '/show/:id' do
+      Tweet.find(params[:id])
+    end
+
+#### grape <= 0.2.1
+
+    desc "Returns a tweet.",
+    :params => {
+      :id => {
+        :desc => "Tweet id.",
+        :type => Integer,
+        :requires => true
+      }
+    }
+    get '/show/:id' do
+      Tweet.find(params[:id])
+    end
+
+### Manual response description
+
+Single entity
+
+    desc "Returns a tweet.", 
+    :response => {
+      :id => 14,
+      :tweet => "FooBarBazz"
+    }
+    get '/show/:id' do
+      Tweet.find(params[:id])
+    end
+
+Array of entities
+
+    desc "Returns a tweets",
+    :response => [
+      {
+        :id => 14,
+        :tweet => "FooBarBazz"
+      },
+      {
+        :id => 14,
+        :tweet => "FooBarBazz"
+      }
+    ]
+    get '/tweets' do
+      Tweet.all
+    end
+
+### Response using Grape::Entity
+
+Single entity
+
+    desc "Returns a tweet.", 
+    :response_with => { :entity => API::Entities::Tweet }
+    get '/show/:id' do
+      Tweet.find(params[:id])
+    end
+
+Array of entities
+
+    desc "Returns a tweet.", 
+    :response_with => { :entities => API::Entities::Tweet }
+    get '/show/:id' do
+      Tweet.find(params[:id])
+    end
+
+Grape::Entity description 
+
+    class Tweet < Grape::Entity
+      expose :tweet, :documentation => {:type => String, :desc => "words go here", :value => "FuuBar"}
+    end
 
 ## Contributing
 

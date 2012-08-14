@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 describe GrapeDoc::DOCGenerator do
-  describe "resources" do
+  it "resources" do
     generator = DOCGenerator.new
-    generator.resources.count.should == 2
+    generator.resources.count.should == 3
   end
 end
 

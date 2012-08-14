@@ -1,5 +1,4 @@
 require 'spec_helper'
-#require 'grape_doc/api_document'
 
 describe "GrapeDoc::APIDocument" do
   describe "should respond to" do

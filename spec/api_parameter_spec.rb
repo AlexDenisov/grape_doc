@@ -1,5 +1,4 @@
 require 'spec_helper'
-
 require 'test_classes/projects'
 
 include GrapeDoc
