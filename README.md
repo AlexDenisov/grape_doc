@@ -64,6 +64,15 @@ _At this time it supports only MarkDown format._
       Tweet.find(params[:id])
     end
 
+## TODO
+
+ - generate plain response
+ - generate response from Grape::Entity
+ - generate response from Grape::Entity with nested entities
+ - other output formats
+ - write docs into separated files
+ - and more others features
+
 ## Contributing
 
 1. Fork it

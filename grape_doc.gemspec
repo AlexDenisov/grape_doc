@@ -4,9 +4,9 @@ require File.expand_path('../lib/grape_doc/version', __FILE__)
 Gem::Specification.new do |gem|
   gem.authors       = ["Alex Denisov"]
   gem.email         = ["1101.debian@gmail.com"]
-  gem.description   = %q{: Write a gem description}
-  gem.summary       = %q{: Write a gem summary}
-  gem.homepage      = ""
+  gem.description   = %q{Documentation generator for Grape API}
+  gem.summary       = %q{Documentation generator for Grape API}
+  gem.homepage      = "https://github.com/AlexDenisov/grape_doc"
   gem.files         = `git ls-files`.split($\)
   gem.executables << "grape_doc"
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
