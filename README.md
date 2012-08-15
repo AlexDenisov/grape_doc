@@ -1,5 +1,3 @@
-_Not published yet_
-
 # GrapeDoc
 
 This gem generate API documentation from Grape API.
@@ -64,60 +62,6 @@ _At this time it supports only MarkDown format._
     }
     get '/show/:id' do
       Tweet.find(params[:id])
-    end
-
-### Manual response description
-
-Single entity
-
-    desc "Returns a tweet.", 
-    :response => {
-      :id => 14,
-      :tweet => "FooBarBazz"
-    }
-    get '/show/:id' do
-      Tweet.find(params[:id])
-    end
-
-Array of entities
-
-    desc "Returns a tweets",
-    :response => [
-      {
-        :id => 14,
-        :tweet => "FooBarBazz"
-      },
-      {
-        :id => 14,
-        :tweet => "FooBarBazz"
-      }
-    ]
-    get '/tweets' do
-      Tweet.all
-    end
-
-### Response using Grape::Entity
-
-Single entity
-
-    desc "Returns a tweet.", 
-    :response_with => { :entity => API::Entities::Tweet }
-    get '/show/:id' do
-      Tweet.find(params[:id])
-    end
-
-Array of entities
-
-    desc "Returns a tweet.", 
-    :response_with => { :entities => API::Entities::Tweet }
-    get '/show/:id' do
-      Tweet.find(params[:id])
-    end
-
-Grape::Entity description 
-
-    class Tweet < Grape::Entity
-      expose :tweet, :documentation => {:type => String, :desc => "words go here", :value => "FuuBar"}
     end
 
 ## Contributing
