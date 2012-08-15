@@ -4,8 +4,13 @@ module GrapeDoc
       return nil if klass.routes.count.zero?
       documents = klass.routes.map do |route|
         resource = klass.to_s.split("::").last
-        APIDocument.new(resource, route)
-      end
+        document = APIDocument.new(resource, route)
+        if document.empty
+          nil
+        else
+          document
+        end
+      end.compact.sort_by{ |doc| doc.resource_name }
     end
     def parse(klass)
       self.class.parse klass

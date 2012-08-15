@@ -7,7 +7,11 @@ require 'grape_doc/api_resource'
 require 'grape_doc/doc_generator'
 require 'grape_doc/formatters/markdown_formatter'
 
+begin
 require File.expand_path(Dir.pwd + "/config/environment")
+rescue LoadError => ex
+  puts "#{ex}"
+end
 
 module GrapeDoc
   def self.generate_doc

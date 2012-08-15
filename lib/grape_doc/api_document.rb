@@ -5,9 +5,14 @@ module GrapeDoc
                   :description, 
                   :params,
                   :response, 
-                  :http_method
+                  :http_method, 
+                  :empty
     def initialize(resource = nil, route = nil)
       return if route.nil?
+      if route.route_path == "/:version/(.:format)"
+        self.empty = true
+        return
+      end
       self.path = route.route_path.gsub('(.:format)','')
       self.resource_name = resource
       self.http_method = route.route_method

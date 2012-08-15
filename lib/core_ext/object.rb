@@ -12,7 +12,7 @@ module Subclasses
         classes << c
       end
     end
-    classes.sort_by{ |k| k.to_s }
+    classes
   end
 end
 Object.send(:include, Subclasses)
