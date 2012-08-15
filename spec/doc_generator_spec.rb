@@ -6,6 +6,3 @@ describe GrapeDoc::DOCGenerator do
     generator.resources.count.should == 1
   end
 end
-
-
-
