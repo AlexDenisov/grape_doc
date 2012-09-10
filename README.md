@@ -18,19 +18,22 @@ Or install it yourself as:
 
 ## Usage
 
-To generate API documentation you should cd to rails app directory
+To generate API documentation you should cd to your app directory
 
-    $ cd rails_app
+    $ cd app_dir
 
-Then run 
-
+    # rails
     $ grape_doc
 
-It'll generate documentation for each Grape::API subclass and place it into **doc** directory. Each API subclass were placed as separated file.   
+    # non-rails
+    $ grape_doc --path sinatra_app.rb # for example
+
+
+It'll generate documentation for each Grape::API subclass and place it into **grape_doc** directory. Each API subclass were placed as separated file.   
 
 You can pass a doc formatter as parameter
 
-    $ grape_doc markdown
+    $ grape_doc
 
 _At this time it supports only MarkDown format._
 

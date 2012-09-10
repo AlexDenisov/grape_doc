@@ -14,6 +14,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = GrapeDoc::VERSION
   gem.add_runtime_dependency 'grape', '~> 0.2', '>= 0.2.1'
+  gem.add_runtime_dependency 'trollop', '~> 2.0'
   gem.add_runtime_dependency 'json', '~> 1.7', '>= 1.7.4'
   gem.add_development_dependency 'rspec', '~> 2.11'
 end
