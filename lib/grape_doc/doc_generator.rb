@@ -29,14 +29,12 @@ module GrapeDoc
 
     def generate
       doc_formatter = init_formatter
-      generated_resources = self.resources.map do | resource |
-        doc_formatter.generate_resource_doc resource
-      end.join
       doc_dir = "#{Dir.pwd}/grape_doc"
-      doc_path = "#{doc_dir}/api.md"
       Dir::mkdir(doc_dir)
-      output = File.open(doc_path, "w")
-      output << generated_resources
+
+      self.resources.each do | resource |
+        File.open(File.join(doc_dir, "#{resource.resource_name}.md"), 'w') {|f| f.write doc_formatter.generate_resource_doc(resource) }
+      end
     end
   end
 end
