@@ -34,7 +34,7 @@ module GrapeDoc
       end.join
       doc_dir = "#{Dir.pwd}/grape_doc"
       doc_path = "#{doc_dir}/api.md"
-      Dir::mkdir(doc_dir)
+      FileUtils.mkdir_p(doc_dir)
       output = File.open(doc_path, "w")
       output << generated_resources
     end
