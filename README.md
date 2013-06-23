@@ -73,7 +73,7 @@ _At this time it supports only MarkDown format._
  - generate response from Grape::Entity
  - generate response from Grape::Entity with nested entities
  - other output formats
- - write docs into separated files
+ - ~~write docs into separated files~~
  - add code documentation
  - and more others features
 
