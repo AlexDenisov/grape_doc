@@ -30,7 +30,7 @@ module GrapeDoc
     def generate
       doc_formatter = init_formatter
       doc_dir = "#{Dir.pwd}/grape_doc"
-      Dir::mkdir(doc_dir)
+      FileUtils.mkdir_p(doc_dir)
 
       self.resources.each do | resource |
         File.open(File.join(doc_dir, "#{resource.resource_name}.md"), 'w') {|f| f.write doc_formatter.generate_resource_doc(resource) }
