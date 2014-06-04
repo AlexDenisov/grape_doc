@@ -8,38 +8,38 @@ describe GrapeDoc::APIParser do
   let(:parser) { APIParser.new }
   describe "parse empty child class" do
     it "should return nil" do
-      parser.parse(Users).should be_nil
+      expect(parser.parse(Users)).to eq(nil)
     end
   end
   describe "parse non-empty child class" do
     it "should_not return nil" do
-      parser.parse(Projects).should_not be_nil
+      expect(parser.parse(Projects)).not_to eq(nil)
     end
     it "should return two documents" do
-      parser.parse(Projects).count.should == 4
+      expect(parser.parse(Projects).count).to eq(4)
     end
     it "should return array of APIDocument objects" do
       parser.parse(Projects).each do |document|
-        document.kind_of?(APIDocument).should be_true
+        expect(document.kind_of?(APIDocument)).to eq(true)
       end
     end
     it "should parse GET route without meta info" do
       document = parser.parse(Projects).first
-      document.resource_name.should == "Projects"
-      document.path.should == "/projects"
-      document.http_method.should == "GET"
-      document.description.should be_nil
-      document.params.should be_nil
-      document.response.should be_nil
+      expect(document.resource_name).to eq("Projects")
+      expect(document.path).to eq("/projects")
+      expect(document.http_method).to eq( "GET")
+      expect(document.description).to eq(nil)
+      expect(document.params).to eq(nil)
+      expect(document.response).to eq(nil)
     end
     it "should parse POST route within meta info" do
       document = parser.parse(Projects)[1]
-      document.resource_name.should == "Projects"
-      document.path.should == "/projects"
-      document.http_method.should == "POST"
-      document.description.should == "Create Project"
-      document.params.should be_nil
-      document.response.should be_nil
+      expect(document.resource_name).to eq("Projects")
+      expect(document.path).to eq("/projects")
+      expect(document.http_method).to eq("POST")
+      expect(document.description).to eq("Create Project")
+      expect(document.params).to eq(nil)
+      expect(document.response).to eq(nil)
     end
     it "should parse PUT route within meta info" do
       params = { 
@@ -49,11 +49,11 @@ describe GrapeDoc::APIParser do
         }
       }
       document = parser.parse(Projects)[2]
-      document.resource_name.should == "Projects"
-      document.path.should == "/projects"
-      document.http_method.should == "PUT"
-      document.description.should == "Update Project"
-      document.response.should be_nil
+      expect(document.resource_name).to eq("Projects")
+      expect(document.path).to eq("/projects")
+      expect(document.http_method).to eq("PUT")
+      expect(document.description).to eq("Update Project")
+      expect(document.response).to eq(nil)
     end
     it "should parse DELETE route within meta info" do
       params = { 
@@ -66,12 +66,12 @@ describe GrapeDoc::APIParser do
         :status => true
       }
       document = parser.parse(Projects)[3]
-      document.resource_name.should == "Projects"
-      document.path.should == "/projects"
-      document.http_method.should == "DELETE"
-      document.description.should == "Delete Project"
-#      document.params.should == params
-      document.response.should == response
+      expect(document.resource_name).to eq("Projects")
+      expect(document.path).to eq("/projects")
+      expect(document.http_method).to eq("DELETE")
+      expect(document.description).to eq("Delete Project")
+      # expect(document.params).to eq(params)
+      expect(document.response).to eq(response)
     end
   end
 end

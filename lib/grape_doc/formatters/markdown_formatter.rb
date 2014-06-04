@@ -11,8 +11,10 @@ module GrapeDoc
           next if parameter.field.nil? or parameter.field.empty?
           param = " - #{parameter.field}"
           param += " (#{parameter.field_type})" if parameter.field_type
-          param += " (required)" if parameter.required
-          param += " : #{parameter.description}\n\n"
+          param += " (*required*)" if parameter.required
+          param += " : #{parameter.description} " if parameter.description
+          param += " Example: #{parameter.sample_value}" if parameter.sample_value
+          param += "\n\n"
         end.join if document.params
         
         route = "#{path} #{description}"
@@ -25,4 +27,3 @@ module GrapeDoc
     end
   end
 end
-

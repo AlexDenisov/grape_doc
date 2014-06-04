@@ -6,22 +6,22 @@ describe "GrapeDoc::APIDocument" do
       GrapeDoc::APIDocument.new 
     }
     it "resource" do
-      api_document.respond_to?(:resource_name).should be_true
+      expect(api_document.respond_to?(:resource_name)).to eq(true)
     end
     it "path" do
-      api_document.respond_to?(:path).should be_true
+      expect(api_document.respond_to?(:path)).to eq(true)
     end
     it "description" do
-      api_document.respond_to?(:description).should be_true
+      expect(api_document.respond_to?(:description)).to eq(true)
     end
     it "params" do
-      api_document.respond_to?(:params).should be_true
+      expect(api_document.respond_to?(:params)).to eq(true)
     end
     it "response" do
-      api_document.respond_to?(:response).should be_true
+      expect(api_document.respond_to?(:response)).to eq(true)
     end
     it "http_method" do
-      api_document.respond_to?(:http_method).should be_true
+      expect(api_document.respond_to?(:http_method)).to eq(true)
     end
   end
 end

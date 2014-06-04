@@ -16,6 +16,10 @@ module GrapeDoc
                       parameter_hash[:required]
       self.description =  parameter_hash[:desc] ||
                           parameter_hash[:description]
+      self.field_type = parameter_hash[:type]
+      if parameter_hash.keys.include? :documentation
+        self.sample_value = parameter_hash[:documentation][:example]
+      end
     end
     def self.initialize_parameters(params_hash)
       params = params_hash.map do |name, hash|
@@ -26,4 +30,3 @@ module GrapeDoc
     end
   end
 end
-
