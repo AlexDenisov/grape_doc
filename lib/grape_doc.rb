@@ -8,12 +8,6 @@ require 'grape_doc/doc_generator'
 require 'grape_doc/formatters/markdown_formatter'
 require 'trollop'
 
-#begin
-#require File.expand_path(Dir.pwd + "/config/environment")
-#rescue LoadError => ex
-#  puts "#{ex}"
-#end
-
 module GrapeDoc
   def self.generate_doc
     opts = Trollop::options do
