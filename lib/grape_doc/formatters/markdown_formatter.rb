@@ -4,12 +4,12 @@ module GrapeDoc
       title = "### #{resource.resource_name}\n"
       
       documents = resource.documents.map do |document|
-        path = "#### #{document.http_method} #{document.path}\n\n"
+        path = "#### #{document.http_method} #{escape(document.path)}\n\n"
         description = "#{document.description}\n\n"
         
         parameters = document.params.map do |parameter| 
           next if parameter.field.nil? or parameter.field.empty?
-          param = " - #{parameter.field}"
+          param = " - #{escape(parameter.field)}"
           param += " (#{parameter.field_type})" if parameter.field_type
           param += " (*required*)" if parameter.required
           param += " : #{parameter.description} " if parameter.description
@@ -24,6 +24,12 @@ module GrapeDoc
       end.join
       return "" if documents.nil? or documents.empty?
       "#{title}\n\n\n#{documents}\n"
+    end
+
+    private
+
+    def escape(str)
+      str.gsub('_', '\_')
     end
   end
 end
