@@ -2,8 +2,14 @@
 require File.expand_path('../lib/grape_doc/version', __FILE__)
 
 Gem::Specification.new do |gem|
-  gem.authors       = ["Alex Denisov"]
-  gem.email         = ["1101.debian@gmail.com"]
+  gem.authors       = ["Alex Denisov", 
+                       "rayko", 
+                       "Jack Forrest", 
+                       "Chelsea Robb"]
+  gem.email         = ["1101.debian@gmail.com", 
+                       "rayko.drg@gmail.com", 
+                       "jack@jrforrest.net", 
+                       "chelsea.robb@gmail.com"]
   gem.description   = %q{Documentation generator for Grape API}
   gem.summary       = %q{Documentation generator for Grape API}
   gem.homepage      = "https://github.com/AlexDenisov/grape_doc"
