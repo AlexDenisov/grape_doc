@@ -29,7 +29,9 @@ module GrapeDoc
     private
 
     def escape(str)
-      str.gsub('_', '\_')
+      str.gsub('_', '\_').
+          gsub('[', '\[').
+          gsub(']', '\]')
     end
   end
 end
