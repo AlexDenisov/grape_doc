@@ -9,6 +9,12 @@ module GrapeDoc
 
         @doc_dir = args[:doc_dir]
 
+        @api_classes = if args[:root_api]
+          args[:root_api].constantize.endpoints.map{|endpoint| endpoint.options[:app] }
+        else
+          Grape::API.subclasses
+        end
+
         self.load
       rescue LoadError => ex
         puts "#{ex}"
@@ -20,7 +26,7 @@ module GrapeDoc
     end
 
     def load
-      self.resources = Grape::API.subclasses.map do |klass|
+      self.resources = @api_classes.map do |klass|
         resource = APIResource.new(klass)
         if resource.documents.nil? or resource.documents.count.zero?
           nil

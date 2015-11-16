@@ -17,12 +17,15 @@ module GrapeDoc
       opt :paths, "Resource paths",
           :type => :strings,
           :default => [File.expand_path(Dir.pwd + "/config/environment")]
+      opt :root_api, "Top level API",
+          :type => :string
     end
 
     FileUtils.mkdir_p(opts[:doc_dir])
 
     generator = DOCGenerator.new resource_paths: opts[:paths],
-                                 doc_dir: opts[:doc_dir]
+                                 doc_dir: opts[:doc_dir],
+                                 root_api: opts[:root_api]
     generator.generate
   end
 end
