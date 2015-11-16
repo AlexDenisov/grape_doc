@@ -1,11 +1,11 @@
-module GrapeDoc 
-  class DOCGenerator 
-    attr_accessor :resources, 
-                  :formatter, 
+module GrapeDoc
+  class DOCGenerator
+    attr_accessor :resources,
+                  :formatter,
                   :single_file
-    def initialize(resource_path)
+    def initialize(resource_paths)
       begin
-        require resource_path
+        resource_paths.each { |resource| require resource }
         self.load
       rescue LoadError => ex
         puts "#{ex}"
@@ -38,4 +38,3 @@ module GrapeDoc
     end
   end
 end
-

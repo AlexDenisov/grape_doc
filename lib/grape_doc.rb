@@ -11,11 +11,11 @@ require 'trollop'
 module GrapeDoc
   def self.generate_doc
     opts = Trollop::options do
-      opt :path, "Resource path", 
-          :type => :string, 
-          :default => File.expand_path(Dir.pwd + "/config/environment") 
+      opt :paths, "Resource paths",
+          :type => :strings,
+          :default => [File.expand_path(Dir.pwd + "/config/environment")]
     end
-    generator = DOCGenerator.new opts[:path]
+    generator = DOCGenerator.new opts[:paths]
     generator.generate
   end
 end
