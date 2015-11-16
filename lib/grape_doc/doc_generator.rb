@@ -3,9 +3,12 @@ module GrapeDoc
     attr_accessor :resources,
                   :formatter,
                   :single_file
-    def initialize(resource_paths)
+    def initialize(args = {})
       begin
-        resource_paths.each { |resource| require resource }
+        args[:resource_paths].each { |resource| require resource }
+
+        @doc_dir = args[:doc_dir]
+
         self.load
       rescue LoadError => ex
         puts "#{ex}"
@@ -29,11 +32,9 @@ module GrapeDoc
 
     def generate
       doc_formatter = init_formatter
-      doc_dir = "#{Dir.pwd}/grape_doc"
-      FileUtils.mkdir_p(doc_dir)
 
       self.resources.each do | resource |
-        File.open(File.join(doc_dir, "#{resource.resource_name}.md"), 'w') {|f| f.write doc_formatter.generate_resource_doc(resource) }
+        File.open(File.join(@doc_dir, "#{resource.resource_name}.md"), 'w') {|f| f.write doc_formatter.generate_resource_doc(resource) }
       end
     end
   end
