@@ -19,13 +19,16 @@ module GrapeDoc
           :default => [File.expand_path(Dir.pwd + "/config/environment")]
       opt :root_api, "Top level API",
           :type => :string
+      opt :stdout, "Print documentation instead of generating files",
+          :short => :s
     end
 
-    FileUtils.mkdir_p(opts[:doc_dir])
+    FileUtils.mkdir_p(opts[:doc_dir]) if !opts[:stdout]
 
     generator = DOCGenerator.new resource_paths: opts[:paths],
                                  doc_dir: opts[:doc_dir],
-                                 root_api: opts[:root_api]
+                                 root_api: opts[:root_api],
+                                 stdout: opts[:stdout]
     generator.generate
   end
 end

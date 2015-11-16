@@ -8,6 +8,7 @@ module GrapeDoc
         args[:resource_paths].each { |resource| require resource }
 
         @doc_dir = args[:doc_dir]
+        @stdout = args[:stdout] || false
 
         @api_classes = if args[:root_api]
           args[:root_api].constantize.endpoints.map{|endpoint| endpoint.options[:app] }
@@ -40,8 +41,23 @@ module GrapeDoc
       doc_formatter = init_formatter
 
       self.resources.each do | resource |
-        File.open(File.join(@doc_dir, "#{resource.resource_name}.md"), 'w') {|f| f.write doc_formatter.generate_resource_doc(resource) }
+        body = doc_formatter.generate_resource_doc(resource)
+
+        output_body(body, resource)
       end
     end
+
+    def output_body(body, resource)
+      if @stdout
+        $stdout.print body
+      else
+        generate_files body, resource
+      end
+    end
+
+    def generate_files(body, resource)
+      File.open(File.join(@doc_dir, "#{resource.resource_name}.md"), 'w') {|f| f.write body }
+    end
+
   end
 end
