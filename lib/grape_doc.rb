@@ -14,6 +14,8 @@ module GrapeDoc
     opts = Trollop::options do
       opt :batch, "Generate docs for multiple APIs",
           :short => :B
+      opt :bundle, "Run bundle on child APIs",
+          :short => :b
       opt :doc_dir, "Documentation save location",
           :type => :string,
           :default => File.expand_path(Dir.pwd + "/grape_doc")
@@ -40,6 +42,8 @@ module GrapeDoc
           $stdout.puts "Creating docs for: #{d.split('/').last}"
 
           Dir.chdir(d) do
+            `bundle` if opts[:bundle]
+
             exec_command = 'grape_doc -s'
             exec_command << " --paths #{opts[:paths].join(' ')}" if opts[:paths]
             exec_command << " --root-api #{opts[:root_api]}" if opts[:root_api]
