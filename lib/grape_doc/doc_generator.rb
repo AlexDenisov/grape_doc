@@ -5,10 +5,10 @@ module GrapeDoc
                   :single_file
     def initialize(args = {})
       begin
-        args[:resource_paths].each { |resource| require resource }
+        args[:paths].each { |resource| require resource }
 
         @doc_dir = args[:doc_dir]
-        @stdout = args[:stdout] || false
+        @stdout = args[:stdout]
 
         @api_classes = if args[:root_api]
           args[:root_api].constantize.endpoints.map{|endpoint| endpoint.options[:app] }
@@ -39,24 +39,13 @@ module GrapeDoc
 
     def generate
       doc_formatter = init_formatter
+      writer = DOCWriter.new @doc_dir, @stdout
 
       self.resources.each do | resource |
         body = doc_formatter.generate_resource_doc(resource)
 
-        output_body(body, resource)
+        writer.output_body(body, resource.resource_name)
       end
-    end
-
-    def output_body(body, resource)
-      if @stdout
-        $stdout.print body
-      else
-        generate_files body, resource
-      end
-    end
-
-    def generate_files(body, resource)
-      File.open(File.join(@doc_dir, "#{resource.resource_name}.md"), 'w') {|f| f.write body }
     end
 
   end

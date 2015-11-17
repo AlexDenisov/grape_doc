@@ -4,6 +4,7 @@ require 'grape_doc/api_document'
 require 'grape_doc/api_parser'
 require 'grape_doc/api_parameter'
 require 'grape_doc/api_resource'
+require 'grape_doc/doc_writer'
 require 'grape_doc/doc_generator'
 require 'grape_doc/formatters/markdown_formatter'
 require 'trollop'
@@ -20,15 +21,13 @@ module GrapeDoc
       opt :root_api, "Top level API",
           :type => :string
       opt :stdout, "Print documentation instead of generating files",
-          :short => :s
+          :short => :s,
+          :default => false
     end
 
     FileUtils.mkdir_p(opts[:doc_dir]) if !opts[:stdout]
 
-    generator = DOCGenerator.new resource_paths: opts[:paths],
-                                 doc_dir: opts[:doc_dir],
-                                 root_api: opts[:root_api],
-                                 stdout: opts[:stdout]
+    generator = DOCGenerator.new opts
     generator.generate
   end
 end
