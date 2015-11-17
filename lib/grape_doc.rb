@@ -54,7 +54,7 @@ module GrapeDoc
       end
 
       writer = DOCWriter.new opts[:doc_dir], opts[:stdout]
-      writer.output_body(resource_markdown.join, 'documentation.md')
+      writer.output_body(resource_markdown.join, 'documentation')
 
       $stdout.puts "Documentation location: #{opts[:doc_dir]}/documentation.md"
     else
