@@ -12,19 +12,19 @@ require 'trollop'
 module GrapeDoc
   def self.generate_doc
     opts = Trollop::options do
-      opt :batch, "Generate docs for multiple APIs",
+      opt :batch, "Generate documentation for multiple APIs",
           :short => :B
       opt :bundle, "Run bundle on child APIs",
           :short => :b
       opt :output_dir, "Directory to save documentation file(s)",
           :type => :string,
           :default => File.expand_path(Dir.pwd + "/grape_doc")
-      opt :paths, "Resource paths",
+      opt :paths, "API resource paths, relative to project root",
           :type => :strings,
-          :default => [File.expand_path(Dir.pwd + "/config/environment")]
-      opt :root_api, "Top level API",
+          :default => ["./config/environment"]
+      opt :root_api, "Top level API class name",
           :type => :string
-      opt :stdout, "Print documentation instead of generating files",
+      opt :stdout, "Print documentation stdout instead of generating files",
           :short => :s,
           :default => false
     end
@@ -39,8 +39,6 @@ module GrapeDoc
 
       project_dirs.each do |d|
         if File.file?(d + '/app.rb')
-          $stdout.puts "Creating docs for: #{d.split('/').last}"
-
           Dir.chdir(d) do
             `bundle` if opts[:bundle]
 
@@ -55,8 +53,6 @@ module GrapeDoc
 
       writer = DOCWriter.new opts[:output_dir], opts[:stdout]
       writer.output_body(resource_markdown.join, 'documentation')
-
-      $stdout.puts "Documentation location: #{opts[:doc_dir]}/documentation.md"
     else
       generator = DOCGenerator.new opts
       generator.generate
