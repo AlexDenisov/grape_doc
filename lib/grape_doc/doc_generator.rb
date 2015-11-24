@@ -7,9 +7,8 @@ module GrapeDoc
       begin
         args[:paths].each { |resource| require resource }
 
-        @doc_dir = args[:doc_dir]
+        @output_dir = args[:output_dir]
         @stdout = args[:stdout]
-
         @api_classes = if args[:root_api]
           args[:root_api].constantize.endpoints.map{|endpoint| endpoint.options[:app] }
         else
@@ -39,7 +38,7 @@ module GrapeDoc
 
     def generate
       doc_formatter = init_formatter
-      writer = DOCWriter.new @doc_dir, @stdout
+      writer = DOCWriter.new @output_dir, @stdout
 
       self.resources.each do | resource |
         body = doc_formatter.generate_resource_doc(resource)

@@ -16,7 +16,7 @@ module GrapeDoc
           :short => :B
       opt :bundle, "Run bundle on child APIs",
           :short => :b
-      opt :doc_dir, "Documentation save location",
+      opt :output_dir, "Directory to save documentation file(s)",
           :type => :string,
           :default => File.expand_path(Dir.pwd + "/grape_doc")
       opt :paths, "Resource paths",
@@ -29,7 +29,7 @@ module GrapeDoc
           :default => false
     end
 
-    FileUtils.mkdir_p(opts[:doc_dir]) if !opts[:stdout]
+    FileUtils.mkdir_p(opts[:output_dir]) if !opts[:stdout]
 
     if opts[:batch]
       dirs = Dir.glob('*').select{|f| File.directory?(f)}
@@ -53,7 +53,7 @@ module GrapeDoc
         end
       end
 
-      writer = DOCWriter.new opts[:doc_dir], opts[:stdout]
+      writer = DOCWriter.new opts[:output_dir], opts[:stdout]
       writer.output_body(resource_markdown.join, 'documentation')
 
       $stdout.puts "Documentation location: #{opts[:doc_dir]}/documentation.md"

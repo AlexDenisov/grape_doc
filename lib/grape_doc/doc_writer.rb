@@ -1,7 +1,7 @@
 module GrapeDoc
   class DOCWriter
     def initialize(output_dir, stdout)
-      @doc_dir = output_dir
+      @output_dir = output_dir
       @stdout = stdout
     end
 
@@ -14,7 +14,7 @@ module GrapeDoc
     end
 
     def generate_files(body, resource_name)
-      File.open(File.join(@doc_dir, "#{resource_name}.md"), 'w') {|f| f.write body }
+      File.open(File.join(@output_dir, "#{resource_name}.md"), 'w') {|f| f.write body }
     end
   end
 end
