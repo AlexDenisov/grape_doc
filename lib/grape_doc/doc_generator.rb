@@ -1,11 +1,20 @@
-module GrapeDoc 
-  class DOCGenerator 
-    attr_accessor :resources, 
-                  :formatter, 
+module GrapeDoc
+  class DOCGenerator
+    attr_accessor :resources,
+                  :formatter,
                   :single_file
-    def initialize(resource_path)
+    def initialize(args = {})
       begin
-        require resource_path
+        args[:resource_files].each { |resource| require resource }
+
+        @output_dir = args[:output_dir]
+        @stdout = args[:stdout]
+        @api_classes = if args[:root_api]
+          args[:root_api].constantize.endpoints.map{|endpoint| endpoint.options[:app] }
+        else
+          Grape::API.subclasses
+        end
+
         self.load
       rescue LoadError => ex
         puts "#{ex}"
@@ -17,7 +26,7 @@ module GrapeDoc
     end
 
     def load
-      self.resources = Grape::API.subclasses.map do |klass|
+      self.resources = @api_classes.map do |klass|
         resource = APIResource.new(klass)
         if resource.documents.nil? or resource.documents.count.zero?
           nil
@@ -29,13 +38,14 @@ module GrapeDoc
 
     def generate
       doc_formatter = init_formatter
-      doc_dir = "#{Dir.pwd}/grape_doc"
-      FileUtils.mkdir_p(doc_dir)
+      writer = DOCWriter.new @output_dir, @stdout
 
       self.resources.each do | resource |
-        File.open(File.join(doc_dir, "#{resource.resource_name}.md"), 'w') {|f| f.write doc_formatter.generate_resource_doc(resource) }
+        body = doc_formatter.generate_resource_doc(resource)
+
+        writer.output_body(body, resource.resource_name)
       end
     end
+
   end
 end
-

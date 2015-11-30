@@ -37,6 +37,20 @@ You can pass a doc formatter as parameter
 
 _At this time it supports only MarkDown format._
 
+## Options
+  - `-B, --batch` -  Generate documentation for multiple APIs
+  - `-b, --bundle` -  Run bundle on child APIs
+  - `-o, --output-dir` -  Directory to save documentation file(s) (default: /current/directory/grape_doc)
+  - `-F, --resource-files` -  API resource files, relative to project root (default: ./config/environment.rb)
+  - `-r, --root-api` -  Top level API class name
+  - `-s, --stdout` -  Print documentation stdout instead of generating files
+  - `-h, --help` -  Show this message
+
+#### example usage:
+`grape_doc -sB --resource-files ./config/environment.rb ./app.rb --root-api App::API`
+
+The above will require config/environment.rb, app.rb, and print all API classes mounted under App::API to stdout.
+
 ## API description
 
 ### Parameters
