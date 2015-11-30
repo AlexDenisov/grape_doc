@@ -41,15 +41,15 @@ _At this time it supports only MarkDown format._
   - `-B, --batch` -  Generate documentation for multiple APIs
   - `-b, --bundle` -  Run bundle on child APIs
   - `-o, --output-dir` -  Directory to save documentation file(s) (default: /current/directory/grape_doc)
-  - `-p, --paths` -  API resource paths, relative to project root (default: ./config/environment)
+  - `-F, --resource-files` -  API resource files, relative to project root (default: ./config/environment.rb)
   - `-r, --root-api` -  Top level API class name
   - `-s, --stdout` -  Print documentation stdout instead of generating files
   - `-h, --help` -  Show this message
 
 #### example usage:
-`grape_doc -sB --paths ./config/environment ./app.rb --root-api App::API`
+`grape_doc -sB --resource-files ./config/environment.rb ./app.rb --root-api App::API`
 
-The above will require config/environment, app.rb, and print all API classes mounted under App::API to stdout.
+The above will require config/environment.rb, app.rb, and print all API classes mounted under App::API to stdout.
 
 ## API description
 

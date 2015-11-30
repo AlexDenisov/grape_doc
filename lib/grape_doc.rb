@@ -19,9 +19,10 @@ module GrapeDoc
       opt :output_dir, "Directory to save documentation file(s)",
           :type => :string,
           :default => File.expand_path(Dir.pwd + "/grape_doc")
-      opt :paths, "API resource paths, relative to project root",
+      opt :resource_files, "API resource files, relative to project root",
           :type => :strings,
-          :default => ["./config/environment"]
+          :short => :F,
+          :default => ["./config/environment.rb"]
       opt :root_api, "Top level API class name",
           :type => :string
       opt :stdout, "Print documentation stdout instead of generating files",
@@ -38,12 +39,13 @@ module GrapeDoc
       resource_markdown = []
 
       project_dirs.each do |d|
-        if File.file?(d + '/app.rb')
-          Dir.chdir(d) do
+        Dir.chdir(d) do
+          puts "Current DIR: #{d}"
+          if opts[:resource_files].all? {|resource| File.file?(resource)}
             `bundle` if opts[:bundle]
 
             exec_command = 'grape_doc -s'
-            exec_command << " --paths #{opts[:paths].join(' ')}" if opts[:paths]
+            exec_command << " --resource-files #{opts[:resource_files].join(' ')}" if opts[:resource_files]
             exec_command << " --root-api #{opts[:root_api]}" if opts[:root_api]
 
             resource_markdown << `#{exec_command}`

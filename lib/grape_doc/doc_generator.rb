@@ -5,7 +5,7 @@ module GrapeDoc
                   :single_file
     def initialize(args = {})
       begin
-        args[:paths].each { |resource| require resource }
+        args[:resource_files].each { |resource| require resource }
 
         @output_dir = args[:output_dir]
         @stdout = args[:stdout]
